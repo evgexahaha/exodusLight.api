@@ -46,7 +46,7 @@ class UserController extends Controller
     public function login(Request $request)
     {
         $user = User::where([
-            ['email', '=', $request->email],
+            ['name', '=', $request->name],
             ['password', '=', $request->password],
         ])->first();
 
@@ -72,8 +72,9 @@ class UserController extends Controller
     public function logout()
     {
         $user = Auth::user();
+        dd($user);
 
-        $user->api_token = null;
+        $user->token = null;
         $user->save();
 
         return response()->json([
@@ -82,4 +83,5 @@ class UserController extends Controller
             ]
         ], 200);
     }
+
 }

@@ -14,3 +14,4 @@ Route::post('/add', [ProductController::class, 'addProduct']);
 
 Route::post('/register', [UserController::class, 'register']);
 Route::post('/login', [UserController::class, 'login']);
+Route::get('/logout', [UserController::class, 'logout']);

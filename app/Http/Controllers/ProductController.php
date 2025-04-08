@@ -18,27 +18,24 @@ class ProductController extends Controller
 
     public function addProduct(Request $request)
     {
-        // Валидация данных
         $request->validate([
             'name' => 'required|string|max:255',
             'text' => 'nullable|string',
             'price' => 'required|numeric',
-            'photo' => 'nullable|image|mimes:jpg,jpeg,png|max:2048', // Ограничение на изображение
+            'photo' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
-        // Обработка фото
         if ($request->hasFile('photo')) {
-            $photoPath = $request->file('photo')->store('photos', 'public'); // Сохраняем в storage/app/public/photos
+            $photoPath = $request->file('photo')->store('photos', 'public');
         } else {
-            $photoPath = null; // Если фото нет
+            $photoPath = null;
         }
 
-        // Создание продукта
         $newProduct = Product::create([
             'name' => $request->name,
             'text' => $request->text,
             'price' => $request->price,
-            'photo' => $photoPath, // Сохраняем путь к фото в БД
+            'photo' => $photoPath,
         ]);
 
         return response()->json([
